@@ -1,6 +1,6 @@
-# [Project name]
+# Terres d'Art
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A premium handmade Moroccan pottery eCommerce web app with WhatsApp-based ordering, admin dashboard, and artisan showcase.
 
 ## Run & Operate
 
@@ -14,31 +14,52 @@ _Replace the heading above with the project's name, and this line with one sente
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
+- Frontend: React 19 + Vite, Tailwind CSS v4, Framer Motion, shadcn/ui, Wouter
+- API: Express 5, cookie-parser, pino logging
+- DB: PostgreSQL + Drizzle ORM (tables: categories, products, orders)
 - Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
+- API codegen: Orval (from OpenAPI spec → React Query hooks + Zod schemas)
 - Build: esbuild (CJS bundle)
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/pottery-store/` — React+Vite frontend (preview path `/`)
+- `artifacts/api-server/` — Express API server (path `/api`)
+- `lib/db/` — Drizzle ORM schema + client
+- `lib/api-spec/` — OpenAPI YAML spec (source of truth for all endpoints)
+- `lib/api-client-react/` — Generated React Query hooks (from Orval)
+- `lib/api-zod/` — Generated Zod schemas (from Orval)
+- `artifacts/api-server/src/routes/` — All API route handlers
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Contract-first API: OpenAPI spec drives both frontend hooks and server Zod validation
+- WhatsApp ordering: cart state lives in localStorage; checkout sends a formatted WhatsApp message + saves to DB
+- Session auth: admin uses a simple httpOnly cookie (`admin_session=authenticated`); no JWT
+- Price stored as `numeric` in DB, converted to `Number()` at route boundary
+- Route order critical: `/products/featured` and `/orders/export/csv` registered before parameterized routes
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- **Shop**: Browse all 8 seed products with category filters, price range, search, and stock toggle
+- **Product detail**: Image gallery, color selector, quantity picker, "Add to Cart" + "Order on WhatsApp"
+- **Cart**: Full cart management with quantity editing; WhatsApp checkout collects customer details
+- **Wishlist**: Heart toggle on all product cards; persisted in localStorage
+- **Admin dashboard**: Stats overview (orders, revenue, products, pending), top products, orders by status
+- **Admin products**: CRUD table with create/edit dialog; image URL, colors, featured flag
+- **Admin orders**: Status management per order, CSV export
+- **Dark mode**: Full dark/light toggle; earthy terracotta palette in both modes
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- Admin credentials: username `admin`, password `admin123`
+- WhatsApp number: `1234567890` (update in `cart.tsx` and `product-detail.tsx`)
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Seed data already inserted — re-running seed SQL will conflict on unique slugs (safe, uses `ON CONFLICT DO NOTHING`)
+- Admin cookie requires `credentials: 'include'` — CORS is set to `origin: true, credentials: true`
+- `framer-motion` is in `devDependencies` (Vite build) — correct for static artifact
 
 ## Pointers
 

@@ -1,0 +1,8 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "0oSemINU822UMCnc7MIuB"
+uri = "file://artifacts/pottery-store/public/images/hero-pottery.png"
+type = "image"
+title = "Hero image of artisan pottery"

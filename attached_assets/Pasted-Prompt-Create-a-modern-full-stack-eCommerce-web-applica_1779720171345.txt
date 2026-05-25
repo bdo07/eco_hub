@@ -1,0 +1,177 @@
+Prompt
+
+Create a modern full-stack eCommerce web application for a handmade pottery and artisan decor brand.
+
+The website must be inspired by clean and modern product showcase websites similar to premium fashion or sneaker stores.
+Use a minimalist luxury UI with smooth animations, soft shadows, rounded cards, modern typography, and a professional responsive layout.
+
+Tech Stack
+
+Frontend:
+
+React.js with Vite (or Next.js App Router)
+Tailwind CSS
+Framer Motion
+Axios
+React Router
+React Icons
+
+Backend:
+
+Node.js
+Express.js
+MongoDB with Mongoose
+JWT Authentication
+Multer for image uploads
+Main Features
+Client Side
+Beautiful responsive homepage
+Hero section with pottery images
+Product categories
+Product filtering
+Product search
+Product details page
+Wishlist system
+Shopping cart
+Modern product cards like premium eCommerce sites
+Dark/light mode
+Mobile responsive design
+Smooth animations
+Pottery Theme
+
+The website is specialized in:
+
+Handmade pottery
+Ceramic art
+Moroccan pottery
+Handmade decor
+Artisan products
+
+Use elegant earthy colors:
+
+Beige
+Sand
+Clay
+Terracotta
+White
+Dark brown
+
+The design should feel:
+
+Artistic
+Premium
+Handmade
+Clean
+Luxury minimalist
+WhatsApp Ordering System
+
+Instead of online payment:
+
+Add “Order on WhatsApp” button
+When user clicks:
+Product name
+Quantity
+Price
+Client info
+must be automatically sent to WhatsApp message.
+
+Use WhatsApp API link format:
+https://wa.me/
+
+Contact / Client Form
+
+Create a professional form where the client enters:
+
+Full name
+Phone number
+City
+Address
+Selected products
+Notes
+CSV Export System
+
+In admin dashboard:
+
+Store all client orders in MongoDB
+Add button:
+“Export Orders CSV”
+Automatically generate downloadable CSV file with:
+Client info
+Ordered products
+Date
+Total price
+Admin Dashboard
+
+Create protected admin dashboard with authentication.
+
+Admin can:
+
+Add products
+Edit products
+Delete products
+Upload images
+Manage categories
+View orders
+Export CSV
+See statistics
+Product Model
+
+Each product contains:
+
+Name
+Description
+Price
+Category
+Images
+Stock
+Colors
+Handmade details
+Created date
+UI Style
+
+The design must look premium and modern like:
+
+Nike
+Zara Home
+Artisan luxury stores
+Modern pottery brands
+
+Add:
+
+Glassmorphism
+Hover animations
+Smooth transitions
+Elegant product grid
+Modern sidebar filters
+Beautiful typography
+Extra Features
+SEO optimized
+Fast loading
+Lazy image loading
+Toast notifications
+Image zoom
+Pagination
+Responsive navbar
+Footer with social links
+Instagram gallery section
+Folder Structure
+
+Generate complete professional structure:
+
+frontend/
+backend/
+admin/
+Deliverables
+
+Generate:
+
+Complete frontend code
+Complete backend API
+MongoDB models
+Admin dashboard
+CSV export logic
+WhatsApp order system
+Environment variables example
+README installation guide
+
+The final result should look like a real premium pottery eCommerce brand ready for production
