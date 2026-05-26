@@ -115,7 +115,7 @@ export default function ProductDetail() {
                   data-testid="img-product-main"
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-amber-50 to-orange-100 flex items-center justify-center">
+                <div className="w-full h-full bg-muted flex items-center justify-center">
                   <span className="font-serif text-6xl text-primary/30">{product.name[0]}</span>
                 </div>
               )}
