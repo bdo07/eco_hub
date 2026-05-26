@@ -1,5 +1,5 @@
 import { useLocation, Link } from "wouter";
-import { ShoppingBag, DollarSign, Package, Clock, BarChart2, LogOut } from "lucide-react";
+import { ShoppingBag, DollarSign, Package, Clock, BarChart2, LogOut, Tag } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -40,6 +40,7 @@ function AdminLayout({ children }: { children: React.ReactNode }) {
   const navItems = [
     { href: "/admin", label: "Dashboard", icon: BarChart2 },
     { href: "/admin/products", label: "Products", icon: Package },
+    { href: "/admin/categories", label: "Categories", icon: Tag },
     { href: "/admin/orders", label: "Orders", icon: ShoppingBag },
   ];
 
