@@ -14,6 +14,7 @@ import Wishlist from "@/pages/wishlist";
 import AdminLogin from "@/pages/admin/login";
 import AdminDashboard from "@/pages/admin/dashboard";
 import AdminProducts from "@/pages/admin/products";
+import AdminCategories from "@/pages/admin/categories";
 import AdminOrders from "@/pages/admin/orders";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 
@@ -36,6 +37,11 @@ function Router() {
       <Route path="/admin/products">
         <ProtectedRoute>
           <AdminProducts />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/categories">
+        <ProtectedRoute>
+          <AdminCategories />
         </ProtectedRoute>
       </Route>
       <Route path="/admin/orders">
