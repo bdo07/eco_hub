@@ -21,7 +21,7 @@ export default function AdminOrders() {
   const [page, setPage] = useState(1);
   const { data, isLoading } = useListOrders({ page, limit: 20 });
   const updateOrderStatus = useUpdateOrderStatus();
-  const { data: csvData, refetch: fetchCsv } = useExportOrdersCsv({ query: { enabled: false } });
+  const { data: csvData, refetch: fetchCsv } = useExportOrdersCsv({});
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -39,7 +39,7 @@ export default function AdminOrders() {
     toast({ title: "CSV exported" });
   };
 
-  const handleStatusChange = (orderId: string, status: string) => {
+  const handleStatusChange = (orderId: number, status: string) => {
     updateOrderStatus.mutate(
       { id: orderId, data: { status } },
       {
