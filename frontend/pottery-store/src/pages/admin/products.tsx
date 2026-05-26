@@ -24,18 +24,18 @@ import { useQueryClient } from "@tanstack/react-query";
 interface ProductForm {
   name: string;
   description: string;
-  price: string;
-  categoryId: string;
+  price: number;
+  categoryId: number;
   images: string;
-  stock: string;
+  stock: number;
   colors: string;
   handmadeDetails: string;
   isFeatured: boolean;
 }
 
 const EMPTY_FORM: ProductForm = {
-  name: "", description: "", price: "", categoryId: "",
-  images: "", stock: "10", colors: "", handmadeDetails: "", isFeatured: false,
+  name: "", description: "", price: 0, categoryId: 0,
+  images: "", stock: 10, colors: "", handmadeDetails: "", isFeatured: false,
 };
 
 export default function AdminProducts() {
@@ -48,7 +48,7 @@ export default function AdminProducts() {
   const queryClient = useQueryClient();
 
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<number | null>(null);
   const [form, setForm] = useState<ProductForm>(EMPTY_FORM);
 
   const openCreate = () => { setForm(EMPTY_FORM); setEditingId(null); setDialogOpen(true); };
@@ -56,13 +56,13 @@ export default function AdminProducts() {
     setForm({
       name: product.name,
       description: product.description,
-      price: String(product.price),
-      categoryId: String(product.categoryId),
+      price: product.price,
+      categoryId: product.categoryId,
       images: product.images.join(", "),
-      stock: String(product.stock),
+      stock: product.stock,
       colors: product.colors.join(", "),
       handmadeDetails: product.handmadeDetails ?? "",
-      isFeatured: product.isFeatured,
+      isFeatured: product.isFeatured ?? false,
     });
     setEditingId(product.id);
     setDialogOpen(true);
@@ -73,10 +73,10 @@ export default function AdminProducts() {
     const payload = {
       name: form.name,
       description: form.description,
-      price: parseFloat(form.price),
+      price: form.price,
       categoryId: form.categoryId,
       images: form.images.split(",").map((s) => s.trim()).filter(Boolean),
-      stock: parseInt(form.stock, 10),
+      stock: form.stock,
       colors: form.colors.split(",").map((s) => s.trim()).filter(Boolean),
       handmadeDetails: form.handmadeDetails || undefined,
       isFeatured: form.isFeatured,
@@ -86,7 +86,7 @@ export default function AdminProducts() {
       queryClient.invalidateQueries({ queryKey: getListProductsQueryKey() });
     };
 
-    if (editingId) {
+    if (editingId !== null) {
       updateProduct.mutate(
         { id: editingId, data: payload },
         { onSuccess: () => { toast({ title: "Product updated" }); setDialogOpen(false); invalidate(); }, onError: () => toast({ title: "Error", variant: "destructive" }) }
@@ -99,7 +99,7 @@ export default function AdminProducts() {
     }
   };
 
-  const handleDelete = (id: string, name: string) => {
+  const handleDelete = (id: number, name: string) => {
     if (!confirm(`Delete "${name}"?`)) return;
     deleteProduct.mutate(
       { id },
@@ -195,6 +195,14 @@ export default function AdminProducts() {
                       </td>
                     </motion.tr>
                   ))}
+                  {(data?.items ?? []).length === 0 && (
+                    <tr>
+                      <td colSpan={6} className="py-16 text-center text-muted-foreground">
+                        <p className="font-serif text-xl mb-2">No products yet</p>
+                        <p className="text-sm">Add your first product to get started</p>
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -206,7 +214,7 @@ export default function AdminProducts() {
           <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle className="font-serif text-xl">
-                {editingId ? "Edit Product" : "Add Product"}
+                {editingId !== null ? "Edit Product" : "Add Product"}
               </DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSave} className="space-y-4 mt-2">
@@ -236,7 +244,7 @@ export default function AdminProducts() {
                   </SelectTrigger>
                   <SelectContent>
                     {(categories ?? []).map((cat) => (
-                      <SelectItem key={cat.id} value={String(cat.id)}>{cat.name}</SelectItem>
+                      <SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -274,7 +282,7 @@ export default function AdminProducts() {
                   disabled={createProduct.isPending || updateProduct.isPending}
                   data-testid="button-save-product"
                 >
-                  {editingId ? "Update" : "Create"}
+                  {editingId !== null ? "Update" : "Create"}
                 </Button>
               </div>
             </form>

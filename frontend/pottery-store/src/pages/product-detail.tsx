@@ -16,9 +16,10 @@ const WHATSAPP_NUMBER = "1234567890";
 
 export default function ProductDetail() {
   const [, params] = useRoute("/products/:id");
-  const id = params?.id ?? "0";
-  const { data: product, isLoading } = useGetProduct(id, {
-    query: { enabled: !!id, queryKey: getGetProductQueryKey(id) },
+  const idStr = params?.id ?? "0";
+  const id = parseInt(idStr, 10);
+  const { data: product, isLoading } = useGetProduct(isNaN(id) ? 0 : id, {
+    query: { enabled: !isNaN(id) && id > 0, queryKey: getGetProductQueryKey(isNaN(id) ? 0 : id) },
   });
 
   const [selectedImage, setSelectedImage] = useState(0);
@@ -166,7 +167,7 @@ export default function ProductDetail() {
             )}
 
             {/* Colors */}
-            {product.colors.length > 0 && (
+            {product.colors && product.colors.length > 0 && (
               <div>
                 <p className="text-sm font-medium text-foreground mb-3">
                   Color: <span className="text-muted-foreground">{selectedColor ?? "Select a color"}</span>
