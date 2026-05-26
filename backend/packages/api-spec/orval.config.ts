@@ -34,7 +34,7 @@ export default defineConfig({
           includeHttpResponseReturnType: false,
         },
         mutator: {
-          path: path.resolve(apiClientReactSrc, "custom-fetch.ts"),
+          path: "../../../../frontend/packages/api-client-react/src/custom-fetch.ts",
           name: "customFetch",
         },
       },
