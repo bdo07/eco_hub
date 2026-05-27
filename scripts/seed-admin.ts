@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import { Admin } from "../backend/packages/db/src/models/Admin.ts";
+import { Admin } from "@workspace/db";
 
 const MONGODB_URI = process.env.MONGODB_URI;
 

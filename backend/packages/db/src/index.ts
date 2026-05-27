@@ -7,12 +7,13 @@ import { Admin } from "./models/Admin";
 const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
-  throw new Error("MONGODB_URI must be set.");
+  throw new Error("MONGODB_URI environment variable must be set.");
 }
 
-// Global mongoose connection
+// Connect to MongoDB
 mongoose.connect(MONGODB_URI).catch((err) => {
-  console.error("MongoDB connection error:", err);
+  console.error("Failed to connect to MongoDB:", err.message);
+  process.exit(1);
 });
 
 export const db = mongoose.connection;
