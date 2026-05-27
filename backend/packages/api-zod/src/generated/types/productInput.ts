@@ -12,7 +12,7 @@ export interface ProductInput {
   description: string;
   /** @minimum 0 */
   price: number;
-  categoryId: number;
+  categoryId: string;
   images: string[];
   /** @minimum 0 */
   stock: number;

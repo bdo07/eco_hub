@@ -6,8 +6,6 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export interface TopProduct {
-  productId: string;
-  productName: string;
-  totalOrdered: number;
+export interface LogoutResponse {
+  success?: boolean;
 }

@@ -34,11 +34,11 @@ export const ListProductsQueryParams = zod.object({
 
 export const ListProductsResponse = zod.object({
   "items": zod.array(zod.object({
-  "id": zod.number(),
+  "id": zod.string(),
   "name": zod.string(),
   "description": zod.string(),
   "price": zod.number(),
-  "categoryId": zod.number(),
+  "categoryId": zod.string(),
   "categoryName": zod.string().nullish(),
   "images": zod.array(zod.string()),
   "stock": zod.number(),
@@ -67,7 +67,7 @@ export const CreateProductBody = zod.object({
   "name": zod.string().min(1),
   "description": zod.string(),
   "price": zod.number().min(createProductBodyPriceMin),
-  "categoryId": zod.number(),
+  "categoryId": zod.string(),
   "images": zod.array(zod.string()),
   "stock": zod.number().min(createProductBodyStockMin),
   "colors": zod.array(zod.string()).optional(),
@@ -80,11 +80,11 @@ export const CreateProductBody = zod.object({
  * @summary Get featured/bestseller products for homepage hero
  */
 export const GetFeaturedProductsResponseItem = zod.object({
-  "id": zod.number(),
+  "id": zod.string(),
   "name": zod.string(),
   "description": zod.string(),
   "price": zod.number(),
-  "categoryId": zod.number(),
+  "categoryId": zod.string(),
   "categoryName": zod.string().nullish(),
   "images": zod.array(zod.string()),
   "stock": zod.number(),
@@ -100,15 +100,15 @@ export const GetFeaturedProductsResponse = zod.array(GetFeaturedProductsResponse
  * @summary Get a product by ID
  */
 export const GetProductParams = zod.object({
-  "id": zod.coerce.number()
+  "id": zod.coerce.string()
 })
 
 export const GetProductResponse = zod.object({
-  "id": zod.number(),
+  "id": zod.string(),
   "name": zod.string(),
   "description": zod.string(),
   "price": zod.number(),
-  "categoryId": zod.number(),
+  "categoryId": zod.string(),
   "categoryName": zod.string().nullish(),
   "images": zod.array(zod.string()),
   "stock": zod.number(),
@@ -123,7 +123,7 @@ export const GetProductResponse = zod.object({
  * @summary Update a product (admin)
  */
 export const UpdateProductParams = zod.object({
-  "id": zod.coerce.number()
+  "id": zod.coerce.string()
 })
 
 
@@ -137,7 +137,7 @@ export const UpdateProductBody = zod.object({
   "name": zod.string().min(1).optional(),
   "description": zod.string().optional(),
   "price": zod.number().min(updateProductBodyPriceMin).optional(),
-  "categoryId": zod.number().optional(),
+  "categoryId": zod.string().optional(),
   "images": zod.array(zod.string()).optional(),
   "stock": zod.number().min(updateProductBodyStockMin).optional(),
   "colors": zod.array(zod.string()).optional(),
@@ -146,11 +146,11 @@ export const UpdateProductBody = zod.object({
 })
 
 export const UpdateProductResponse = zod.object({
-  "id": zod.number(),
+  "id": zod.string(),
   "name": zod.string(),
   "description": zod.string(),
   "price": zod.number(),
-  "categoryId": zod.number(),
+  "categoryId": zod.string(),
   "categoryName": zod.string().nullish(),
   "images": zod.array(zod.string()),
   "stock": zod.number(),
@@ -165,7 +165,7 @@ export const UpdateProductResponse = zod.object({
  * @summary Delete a product (admin)
  */
 export const DeleteProductParams = zod.object({
-  "id": zod.coerce.number()
+  "id": zod.coerce.string()
 })
 
 
@@ -173,7 +173,7 @@ export const DeleteProductParams = zod.object({
  * @summary List all product categories
  */
 export const ListCategoriesResponseItem = zod.object({
-  "id": zod.number(),
+  "id": zod.string(),
   "name": zod.string(),
   "slug": zod.string(),
   "description": zod.string().nullish(),
@@ -198,6 +198,41 @@ export const CreateCategoryBody = zod.object({
 
 
 /**
+ * @summary Update a category (admin)
+ */
+export const UpdateCategoryParams = zod.object({
+  "id": zod.coerce.string()
+})
+
+
+
+
+
+export const UpdateCategoryBody = zod.object({
+  "name": zod.string().min(1).optional(),
+  "slug": zod.string().min(1).optional(),
+  "description": zod.string().optional(),
+  "image": zod.string().optional()
+})
+
+export const UpdateCategoryResponse = zod.object({
+  "id": zod.string(),
+  "name": zod.string(),
+  "slug": zod.string(),
+  "description": zod.string().nullish(),
+  "image": zod.string().nullish()
+})
+
+
+/**
+ * @summary Delete a category (admin)
+ */
+export const DeleteCategoryParams = zod.object({
+  "id": zod.coerce.string()
+})
+
+
+/**
  * @summary List all orders (admin)
  */
 export const listOrdersQueryPageDefault = 1;
@@ -211,14 +246,14 @@ export const ListOrdersQueryParams = zod.object({
 
 export const ListOrdersResponse = zod.object({
   "items": zod.array(zod.object({
-  "id": zod.number(),
+  "id": zod.string(),
   "customerName": zod.string(),
   "customerPhone": zod.string(),
   "customerCity": zod.string(),
   "customerAddress": zod.string(),
   "notes": zod.string().nullish(),
   "items": zod.array(zod.object({
-  "productId": zod.number(),
+  "productId": zod.string(),
   "productName": zod.string(),
   "quantity": zod.number(),
   "unitPrice": zod.number()
@@ -250,7 +285,7 @@ export const CreateOrderBody = zod.object({
   "customerAddress": zod.string().min(1),
   "notes": zod.string().optional(),
   "items": zod.array(zod.object({
-  "productId": zod.number(),
+  "productId": zod.string(),
   "quantity": zod.number().min(1)
 }))
 })
@@ -260,18 +295,18 @@ export const CreateOrderBody = zod.object({
  * @summary Get an order by ID
  */
 export const GetOrderParams = zod.object({
-  "id": zod.coerce.number()
+  "id": zod.coerce.string()
 })
 
 export const GetOrderResponse = zod.object({
-  "id": zod.number(),
+  "id": zod.string(),
   "customerName": zod.string(),
   "customerPhone": zod.string(),
   "customerCity": zod.string(),
   "customerAddress": zod.string(),
   "notes": zod.string().nullish(),
   "items": zod.array(zod.object({
-  "productId": zod.number(),
+  "productId": zod.string(),
   "productName": zod.string(),
   "quantity": zod.number(),
   "unitPrice": zod.number()
@@ -286,7 +321,7 @@ export const GetOrderResponse = zod.object({
  * @summary Update order status (admin)
  */
 export const UpdateOrderStatusParams = zod.object({
-  "id": zod.coerce.number()
+  "id": zod.coerce.string()
 })
 
 export const UpdateOrderStatusBody = zod.object({
@@ -294,14 +329,14 @@ export const UpdateOrderStatusBody = zod.object({
 })
 
 export const UpdateOrderStatusResponse = zod.object({
-  "id": zod.number(),
+  "id": zod.string(),
   "customerName": zod.string(),
   "customerPhone": zod.string(),
   "customerCity": zod.string(),
   "customerAddress": zod.string(),
   "notes": zod.string().nullish(),
   "items": zod.array(zod.object({
-  "productId": zod.number(),
+  "productId": zod.string(),
   "productName": zod.string(),
   "quantity": zod.number(),
   "unitPrice": zod.number()
@@ -344,6 +379,14 @@ export const GetAdminMeResponse = zod.object({
 
 
 /**
+ * @summary Admin logout
+ */
+export const AdminLogoutResponse = zod.object({
+  "success": zod.boolean().optional()
+})
+
+
+/**
  * @summary Admin dashboard stats — total orders, revenue, products, recent activity
  */
 export const GetStatsSummaryResponse = zod.object({
@@ -352,14 +395,14 @@ export const GetStatsSummaryResponse = zod.object({
   "totalProducts": zod.number(),
   "pendingOrders": zod.number(),
   "recentOrders": zod.array(zod.object({
-  "id": zod.number(),
+  "id": zod.string(),
   "customerName": zod.string(),
   "customerPhone": zod.string(),
   "customerCity": zod.string(),
   "customerAddress": zod.string(),
   "notes": zod.string().nullish(),
   "items": zod.array(zod.object({
-  "productId": zod.number(),
+  "productId": zod.string(),
   "productName": zod.string(),
   "quantity": zod.number(),
   "unitPrice": zod.number()
@@ -375,7 +418,7 @@ export const GetStatsSummaryResponse = zod.object({
  * @summary Most ordered products
  */
 export const GetTopProductsResponseItem = zod.object({
-  "productId": zod.number(),
+  "productId": zod.string(),
   "productName": zod.string(),
   "totalOrdered": zod.number()
 })

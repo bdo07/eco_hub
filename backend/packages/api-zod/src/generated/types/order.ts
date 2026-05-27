@@ -8,7 +8,7 @@
 import type { OrderItem } from './orderItem';
 
 export interface Order {
-  id: number;
+  id: string;
   customerName: string;
   customerPhone: string;
   customerCity: string;

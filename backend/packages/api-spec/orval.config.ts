@@ -1,7 +1,7 @@
 import { defineConfig, InputTransformerFn } from "orval";
 import path from "path";
 
-const root = path.resolve(__dirname, "..", "..");
+const root = path.resolve(__dirname, "..", "..", "..");
 const apiClientReactSrc = path.resolve(root, "frontend", "packages", "api-client-react", "src");
 const apiZodSrc = path.resolve(root, "backend", "packages", "api-zod", "src");
 
@@ -34,7 +34,7 @@ export default defineConfig({
           includeHttpResponseReturnType: false,
         },
         mutator: {
-          path: "../../../../frontend/packages/api-client-react/src/custom-fetch.ts",
+          path: "../../../frontend/packages/api-client-react/src/custom-fetch.ts",
           name: "customFetch",
         },
       },
