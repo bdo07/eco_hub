@@ -451,7 +451,20 @@ importers:
         version: 3.25.76
 
   scripts:
+    dependencies:
+      '@workspace/db':
+        specifier: workspace:*
+        version: link:../backend/packages/db
+      bcryptjs:
+        specifier: ^3.0.3
+        version: 3.0.3
+      mongoose:
+        specifier: 'catalog:'
+        version: 9.6.2
     devDependencies:
+      '@types/bcryptjs':
+        specifier: ^3.0.0
+        version: 3.0.0
       '@types/node':
         specifier: 'catalog:'
         version: 25.6.2
